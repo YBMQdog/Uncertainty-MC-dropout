@@ -88,7 +88,7 @@ DATABASES = {
  'ENGINE': 'django.db.backends.mysql',
  'NAME': 'database1', #你的数据库名称 数据库需要自己提前建好
  'USER': 'root', #你的数据库用户名
- 'PASSWORD': '103152', #你的数据库密码
+ 'PASSWORD': '123456', #你的数据库密码
  'HOST': '', #你的数据库主机，留空默认为localhost
  'PORT': '3306', #你的数据库端口
  }
