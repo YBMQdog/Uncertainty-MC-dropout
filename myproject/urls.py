@@ -26,9 +26,15 @@ from django.conf import  settings
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('project/', include('stu.urls')),
-    path('test/', views.test),
+
     path('run/',run.run),
     path('post/', upload.upload_list),  # 上传文件
+
+
+
+
+
+
 
 
 ]

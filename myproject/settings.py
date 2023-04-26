@@ -34,13 +34,15 @@ ALLOWED_HOSTS = ['q4v7506409.zicp.fun','127.0.0.1','103.46.128.21']
 
 INSTALLED_APPS = [
     'simpleui',
+    'stu',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'stu',
+
+
 ]
 
 MIDDLEWARE = [
@@ -59,8 +61,8 @@ ROOT_URLCONF = 'myproject.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
+        'DIRS': [os.path.join(BASE_DIR,'templates')],
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.debug',
@@ -79,10 +81,7 @@ WSGI_APPLICATION = 'myproject.wsgi.application'
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
 DATABASES = {
-    # 'default': {
-    #     'ENGINE': 'django.db.backends.sqlite3',
-    #     'NAME': BASE_DIR / 'db.sqlite3',
-    # }
+
 
  'default': {
  'ENGINE': 'django.db.backends.mysql',
