@@ -2,10 +2,13 @@ import json
 import os
 import shutil
 
-from PIL.Image import Image
 
+from PIL.Image import Image
+from algorithm.Uncertainty_test import main
 from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
+
+from myproject import settings
 
 
 def create_users(request):
@@ -58,3 +61,49 @@ def delete_users(request):
             return JsonResponse({"status": "error", "message": f"删除文件夹失败: {str(e)}"})
     else:
         return JsonResponse({"status": "error", "message": "无效的请求"})
+
+
+
+def handle_uploaded_file(f,directory):
+
+    for file in os.listdir(directory):
+        file_path = os.path.join(directory, file)
+        if os.path.isfile(file_path) and file.endswith('.jpg'):
+            os.remove(file_path)
+
+        # 保存新上传的文件
+        with open(os.path.join(directory, 'Test_picture.jpg'), 'wb+') as destination:
+            for chunk in f.chunks():
+                destination.write(chunk)
+
+def upload_file(request):
+    if request.method == 'POST':
+
+        project_name = request.POST.get('project_name')
+        project_author = request.POST.get('project_author')
+
+        folder_name = f"{project_author}-{project_name}"
+        directory = os.path.join('algorithm', 'test_result', folder_name)
+        handle_uploaded_file(request.FILES['avatar'], directory)
+
+        return HttpResponse('Upload successful!')
+    return render(request, 'upload.html')
+
+def Uncertainty_run(request):
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        print(data)
+        project_name = data.get('project_name')
+        project_author = data.get('project_author')
+
+        Test_number = data.get('TestParameters')
+
+        folder_name = f"{project_author}-{project_name}"
+        directory = os.path.join('algorithm', 'test_result', folder_name)
+
+        detail_directory = os.path.join(directory, 'detail')
+        os.makedirs(detail_directory, exist_ok=True)
+        main(directory,Test_number)
+        response_data = {'status': 'success', 'message': '项目已运行'}
+        return JsonResponse(response_data)
+    return render(request, 'run.html')

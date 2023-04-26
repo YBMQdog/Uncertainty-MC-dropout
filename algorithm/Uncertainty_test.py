@@ -1,23 +1,24 @@
-from network import Net
+from .network import Net
 import torch
 import torch.nn.functional as F
 import matplotlib.pyplot as plt
 from PIL import Image
 import random
 import os
-import getdata
+from . import getdata
+
 import numpy as nn
 
-dataset_dir = './data/test for MC/'
-model_file = './model/model.pth'
-figure_save_path ='./test_result'
+
+
+
 path_data = r"./test_result"
 N = 1
 
 device = torch.device("cuda:0" if (torch.cuda.is_available()) else "cpu")
-def clean():
-    for i in os.listdir(path_data):
-            file_data = path_data + "\\" + i
+def clean(path):
+    for i in os.listdir(path):
+            file_data = path + "\\" + i
             if os.path.isfile(file_data) == True:
                 os.remove(file_data)
             else:
@@ -26,21 +27,22 @@ def clean():
 
 
 
-def test(times):
+def test(times,dataset_dir,model_file):
+    # print('zhe shi test ')
+    # print(times)
+    # print(dataset_dir)
+    # print(model_file)
     model = Net()
     model.to(device)
     model.load_state_dict(torch.load(model_file))
     model.eval()
-    files = random.sample(os.listdir(dataset_dir), N)
-    imgs = []
-    imgs_data = []
+    dataset_dir=os.path.join(dataset_dir,'Test_picture.jpg')
+    # print(dataset_dir)
+
     result_list = nn.zeros(200)
-    for file in files:
-        img = Image.open(dataset_dir + file)
-        img_data = getdata.dataTransform(img).to(device)
-        imgs.append(img)
-        imgs_data.append(img_data)
-    imgs_data = torch.stack(imgs_data)
+    img = Image.open(dataset_dir)
+    img_data = getdata.dataTransform(img).to(device)
+    imgs_data = torch.unsqueeze(img_data, dim=0)
 
 
     for a in range(times):
@@ -52,7 +54,9 @@ def test(times):
 
     return result_list
 
-def draw_result(list,mean,var,length):
+def draw_result(list,mean,var,length,data_dir):
+    print('this is draw_result')
+    print(data_dir)
     var=round(var,5)
     mean=round(mean,3)
     width=0.5
@@ -75,13 +79,18 @@ def draw_result(list,mean,var,length):
     plt.ylim(0,1)
     plt.ylabel("probability")
 
-    plt.savefig("./test_result/variance for times{}".format(length))
-    plt.show()
+    # plt.savefig("./test_result/variance for times{}".format(length))
+    data_dir=os.path.join(data_dir,'detail')
+    print(data_dir)
+    plt.savefig(data_dir+"/variance for times{}".format(length))
+    # plt.show()
 
 
 
 
-def calculation(list,T):
+def calculation(list,T,data_dir):
+    print('this is calculation')
+    print(data_dir)
     mean=0.00
     var=0.00
     length=0;
@@ -99,23 +108,30 @@ def calculation(list,T):
 
 
     var=var/T
-    draw_result(list,mean,var,length)
+    draw_result(list,mean,var,length,data_dir)
     print('the times is '+str(T)+'the variance is'+"%.6f"%var)
     return mean,var
 
+def main(directory,number):
+    path_data=os.path.join(directory, 'detail')
+    dataset_dir=directory
 
-if __name__ == '__main__':
-    clean()
+    model_file=os.path.join('algorithm\model','model.pth')
+
+
+    clean(path_data)
     plt.clf()
 
     x_list = nn.zeros(1000)
     y_list = nn.zeros(1000)
-    times=input("how many times you want to test?")
-    times=int(times)
+
+
+    times = int(number)
+
     for i in (n + 1 for n in range(times)):
-        print(i)
-        result = test(i)
-        var = calculation(result, i)
+
+        result = test(i,dataset_dir,model_file)
+        var = calculation(result, i,dataset_dir)
 
         x_list[i] = i
         y_list[i] = var[1]
@@ -128,8 +144,13 @@ if __name__ == '__main__':
     plt.ylabel('variance')
     plt.title('Uncertainty')
     plt.grid(True)
-    plt.show()
 
+    # plt.show()
+
+
+
+if __name__ == '__main__':
+   main()
 
 
 
