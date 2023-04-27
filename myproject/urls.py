@@ -29,6 +29,10 @@ urlpatterns = [
     path('test/', views.test),
     path('run/',run.run),
     path('post/', upload.upload_list),  # 上传文件
+    path('user_detail/', views.user_detail),
+    path('add', views.add_client),
+    path('change_form/add', views.add_client),
+    path('change_form/change_form/add', views.add_client),
 
 
 ]

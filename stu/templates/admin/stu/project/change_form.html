@@ -48,11 +48,21 @@
 <!--    // 改变按钮位置-->
     <input type="button" name="change" value="data set" onclick=
             "window.location.href='/post/'"  id="stamp" >
-     <input type="button" name="run" value="run" onclick=
-            "window.location.href='/run/'"  id="run" >
 
+    <input type="button" name="run" value="run" onclick=
+            "myfunc()"  id="run" >
+
+<div>
+    <a href="http://127.0.0.1:8000/change_form/add">add client</a>
+</div>
     <script>
-<!--//设置盖章按钮为不可用-->
+
+
+
+<!--    function myfunc(){-->
+<!--      alert('click!!!')};-->
+
+
 var button = document.getElementById("stamp");
     button.style.position = "absolute";
     <!--  // 改变按钮位置-->
@@ -67,33 +77,6 @@ button.style.border = "none";
 button.style.borderRadius = "5px";
 button.style.cursor = "pointer";
 
- <!--//设置盖章按钮为不可用-->
-var button1 = document.getElementById("stamp1");
-    button1.style.position = "absolute";
-    <!--  // 改变按钮位置-->
-    button1.style.left = "850px";
-    button1.style.top = "705px";
-
-    <!--// 改变按钮样式-->
-    button1.style.backgroundColor = "#ff6666";
-    button1.style.color = "white";
-    button1.style.padding = "10px 20px";
-    button1.style.border = "none";
-    button1.style.borderRadius = "5px";
-    button1.style.cursor = "pointer";
-
-    var button2 = document.getElementById("stamp2");
-    button2.style.position = "absolute";
-    button2.style.left = "850px";
-    button2.style.top = "755px";
-<!--// 改变按钮位置-->
-<!--    // 改变按钮样式-->
-    button2.style.backgroundColor = "#ff6666";
-    button2.style.color = "white";
-    button2.style.padding = "10px 20px";
-    button2.style.border = "none";
-    button2.style.borderRadius = "5px";
-    button2.style.cursor = "pointer";
     </script>
 
 <!--显示图片-->
