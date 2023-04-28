@@ -12,39 +12,39 @@ def upload_list(request):
     if request.method == "POST":
 
         type = request.POST.get('data type')
+        #
+        # if 'Train' in type:
+        #     train_upload(request)
+        #
+        # elif 'Test' in type:
+        #     test_upload(request)
 
-        if 'Train' in type:
-            train_upload(request)
-
-        elif 'Test' in type:
-            test_upload(request)
-
-        elif 'MC' in type:
+        if 'MC' in type:
             MC_upload(request)
+    # for train data
+    # def train_upload(request):
+    #     files = request.FILES.getlist("avatar")
+    #     print(files)
+    #
+    #     for file in files:
+    #         with open('%s' % os.path.join('data/train', file.name), 'wb') as f:
+    #             for i in file.chunks():
+    #                 f.write(i)
+    #
 
+    # # for test data
+    # def test_upload(request):
+    #     files = request.FILES.getlist("avatar")
+    #     print(files)
+    #
+    # #     for file in files:
+    # #         with open('%s' % os.path.join('data/test', file.name), 'wb') as f:
+    # #             for i in file.chunks():
+    # #                 f.write(i)
+    # #
+    #
     return HttpResponse("submit successfully...（￣︶￣）")
 
-
-# for train data
-def train_upload(request):
-    files = request.FILES.getlist("avatar")
-    print(files)
-
-    for file in files:
-        with open('%s' % os.path.join('data/train', file.name), 'wb') as f:
-            for i in file.chunks():
-                f.write(i)
-
-
-# for test data
-def test_upload(request):
-    files = request.FILES.getlist("avatar")
-    print(files)
-
-    for file in files:
-        with open('%s' % os.path.join('data/test', file.name), 'wb') as f:
-            for i in file.chunks():
-                f.write(i)
 
 
 # for uncertainty measurement data
@@ -53,6 +53,7 @@ def MC_upload(request):
     print(files)
 
     for file in files:
-        with open('%s' % os.path.join('data/test for mc', file.name), 'wb') as f:
+        with open('%s' % os.path.join('algorithm/test_result', file.name), 'wb') as f:
             for i in file.chunks():
                 f.write(i)
+
