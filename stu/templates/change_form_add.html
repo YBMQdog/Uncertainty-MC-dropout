@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>New_client</title>
+</head>
+<body>
+<h2>New client</h2>
+
+
+    <form method="post" action="change_form/add">
+        {% csrf_token %}
+     <input type="text" placeholder="name" name="name"/>
+     <input type="text" placeholder="phone" name="phone"/>
+     <input type="text" placeholder="CustomerID" name="CustomerID"/>
+     <input type="text" placeholder="email" name="email"/>
+     <input type="text" placeholder="address" name="address"/>
+     <input type="text" placeholder="industry" name="industry"/>
+     <input type="submit" value="submit"/>
+    </form>
+
+
+
+</body>
+</html>

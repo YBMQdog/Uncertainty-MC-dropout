@@ -1,5 +1,4 @@
 
 *.jpg
-algorithm/data/test/10060.jpg
-*.jpg
-*.jpg
+*.png
+algorithm/model/model.pth

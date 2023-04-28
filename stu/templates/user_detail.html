@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<div>
+    <input type="button" name="change" value="go back" onclick="window.location.href='http://127.0.0.1:8000/admin/stu/project/'"
+             id="stamp" >
+</div>
+<h2>client detail</h2>
+<table border="1">
+    <thead>
+    <tr>
+     <th>ID</th>
+     <th>name</th>
+      <th>phone</th>
+      <th>CustomerID</th>
+      <th>email</th>
+        <th>address</th>
+       <th>industry</th>
+    </tr>
+   </thead>
+ <tbody>
+ {% for row in queryset %}
+  <tr>
+    <td> {{row.id}} </td>
+    <td>{{row.name}}  </td>
+    <td>{{row.phone}} </td>
+      <td>{{row.CustomerID}} </td>
+      <td>{{row.email}} </td>
+      <td>{{row.address}} </td>
+      <td>{{row.industry}} </td>
+
+
+  </tr>
+ {% endfor %}
+</table>
+
+
+<!--<div>I love Olsen!!!</div>-->
+</body>
+</html>
+
+
