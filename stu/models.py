@@ -21,7 +21,7 @@ class Project(models.Model):
     project_uncertainty = models.CharField(max_length=200, blank=False, verbose_name='Measurement uncertainty ')
     # 检测参数
     TestParameters = models.CharField(max_length=200, blank=False, verbose_name='TestParameters')
-    # 计量特性
+    # 计量次数
     Metrological = models.CharField(max_length=200, blank=False, verbose_name='Metrological')
     # 技术要求
     TestRequirements = models.CharField(max_length=200, blank=False, verbose_name='TestRequirements')

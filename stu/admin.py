@@ -27,4 +27,5 @@ class ProjectAdmin(admin.ModelAdmin):
     search_fields = ('project_name',)
     # readonly_fields = ('project_name', 'project_author', 'project_type', 'project_uncertainty',)  # 无法修改
 
+
 admin.site.register(Project, ProjectAdmin)

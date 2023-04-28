@@ -1,0 +1,90 @@
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+Knujsl7/1L_dstPt3HV5HzF6Gvk/e3t7qujw8p8/02-20-17" crossorigin="anonymous">
+    <style>
+        .custom-select {
+            font-size: 1.25rem;
+            color: #495057;
+        }
+        .custom-file {
+            font-size: 1.25rem;
+            color: #495057;
+        }
+        .custom-btn {
+            font-size: 1.25rem;
+            background-color: #007bff;
+            border-color: #007bff;
+            color: #fff;
+        }
+    </style>
+    <title>Enhanced Page</title>
+</head>
+<body>
+<div class="container mt-5">
+    <form method="post" enctype="multipart/form-data" class="bg-light p-4 rounded shadow-sm">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="type-select" class="form-label">Choose a picture:</label>
+            <select name="data type" id="type-select" class="form-select custom-select">
+                <option value="">--Please choose an option--</option>
+                <option value="MC set">MC set</option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label for="avatar" class="form-label">Upload file:</label>
+            <input type="file" name="avatar" class="form-control custom-file">
+        </div>
+        <div class="d-grid gap-2">
+            <input type="submit" name="submit" value="Submit" class="btn custom-btn">
+        </div>
+    </form>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz4fnFO9gybB3Be3O3Sj5M/7x6cZNhFE/7zS4ryj4E4M4uo33Of4C2gM/r" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js" integrity="sha384-GLhlTQ8iVG93xBfZlPH94m5bM5wnlE5woAU7F+zAo9p8U7VJvmE/lRWI7FJvU2QX" crossorigin="anonymous"></script>
+</body>
+</html>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    // 获取表单元素
+    const form = document.querySelector('form');
+
+    // 监听表单的 submit 事件
+    form.addEventListener("submit", function (event) {
+        // 阻止表单的默认提交行为
+        event.preventDefault();
+
+        // 创建一个新的 FormData 对象，将表单数据添加到其中
+        const formData = new FormData(form);
+
+        // 获取 URL 参数中的 project_name 和 project_author
+        const urlParams = new URLSearchParams(window.location.search);
+        const projectName = urlParams.get('project_name');
+        const projectAuthor = urlParams.get('project_author');
+
+        // 将 project_name 和 project_author 添加到表单数据中
+        formData.append("project_name", projectName);
+        formData.append("project_author", projectAuthor);
+
+        // 使用 fetch API 发送表单数据，包括文件
+        fetch('/project/upload/', {
+            method: 'POST',
+            headers: {
+                'X-CSRFToken': '{{ csrf_token }}',
+            },
+            body: formData,
+        }).then(response => {
+            if (response.ok) {
+                console.log("项目名称和作者已成功发送至后端: " + projectName + " - " + projectAuthor);
+            } else {
+                console.error("请求失败");
+            }
+        });
+    });
+</script>
+{% endblock %}

@@ -44,78 +44,6 @@
     </p>
     {{ adminform.form.non_field_errors }}
 {% endif %}
-<!--    三个按钮-->
-<!--    // 改变按钮位置-->
-    <input type="button" name="change" value="data set" onclick=
-            "window.location.href='/post/'"  id="stamp" >
-     <input type="button" name="run" value="run" onclick=
-            "window.location.href='/run/'"  id="run" >
-
-    <script>
-<!--//设置盖章按钮为不可用-->
-var button = document.getElementById("stamp");
-    button.style.position = "absolute";
-    <!--  // 改变按钮位置-->
-    button.style.left = "850px";
-    button.style.top = "650px";
-
-<!--// 改变按钮样式-->
-button.style.backgroundColor = "#ff6666";
-button.style.color = "white";
-button.style.padding = "10px 20px";
-button.style.border = "none";
-button.style.borderRadius = "5px";
-button.style.cursor = "pointer";
-
- <!--//设置盖章按钮为不可用-->
-var button1 = document.getElementById("stamp1");
-    button1.style.position = "absolute";
-    <!--  // 改变按钮位置-->
-    button1.style.left = "850px";
-    button1.style.top = "705px";
-
-    <!--// 改变按钮样式-->
-    button1.style.backgroundColor = "#ff6666";
-    button1.style.color = "white";
-    button1.style.padding = "10px 20px";
-    button1.style.border = "none";
-    button1.style.borderRadius = "5px";
-    button1.style.cursor = "pointer";
-
-    var button2 = document.getElementById("stamp2");
-    button2.style.position = "absolute";
-    button2.style.left = "850px";
-    button2.style.top = "755px";
-<!--// 改变按钮位置-->
-<!--    // 改变按钮样式-->
-    button2.style.backgroundColor = "#ff6666";
-    button2.style.color = "white";
-    button2.style.padding = "10px 20px";
-    button2.style.border = "none";
-    button2.style.borderRadius = "5px";
-    button2.style.cursor = "pointer";
-    </script>
-
-<!--显示图片-->
-<!--   <head>-->
-<!--   <meta charset="UTF-8">-->
-<!--   <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
-<!--   <meta http-equiv="X-UA-Compatible" content="ie=edge">-->
-<!--   <title>Document</title>-->
-<!--   <style>-->
-<!--   img{-->
-<!--      display:none;-->
-<!--   }-->
-<!--   </style>-->
-<!--   </head>-->
-
-<!-- <button onclick="showimg()">显示图片</button>-->
-<!--   <img src="C:\Users\小叶\Desktop\Ui iteration\1.png" id="test">-->
-<!--   <script>-->
-<!--   function showimg(){-->
-<!--      document.getElementById('test').style.display="block";-->
-<!--   }-->
-<!--   </script>-->
 
 
 {% block field_sets %}
@@ -155,3 +83,4 @@ var button1 = document.getElementById("stamp1");
 </div>
 </form></div>
 {% endblock %}
+
