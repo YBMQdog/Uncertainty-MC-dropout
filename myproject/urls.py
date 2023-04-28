@@ -16,19 +16,18 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from stu import views
-
 from django.conf.urls.static import static
-from django.conf import  settings
-
-
+from django.conf import settings
+from django.contrib import admin
+from django.urls import path
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('project/', include('stu.urls')),
 
-
-
+    path('user_detail/', views.user_detail),
+    path('add', views.add_client),
+    path('change_form/add', views.add_client),
+    path('change_form/change_form/add', views.add_client),
 
 ]
-
-

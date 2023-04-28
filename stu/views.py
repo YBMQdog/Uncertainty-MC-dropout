@@ -5,9 +5,9 @@ import shutil
 
 from PIL.Image import Image
 from algorithm.Uncertainty_test import main
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse, JsonResponse
-
+from stu import models
 from myproject import settings
 
 
@@ -107,3 +107,29 @@ def Uncertainty_run(request):
         response_data = {'status': 'success', 'message': '项目已运行'}
         return JsonResponse(response_data)
     return render(request, 'run.html')
+
+def user_detail(request):
+    queryset = models.UserInfo2.objects.all()
+    for obj in queryset:
+        print(obj.id, obj.name, obj.phone, obj.CustomerID, obj.email, obj.address, obj.industry)
+
+    return render(request, "user_detail.html", {'queryset': queryset})
+
+
+def add_client(request):
+    """添加委托人"""
+
+    if request.method == "GET":
+        return render(request, "change_form_add.html")
+
+    name = request.POST.get("name")
+    phone = request.POST.get("phone")
+    CustomerID = request.POST.get("CustomerID")
+    email = request.POST.get("email")
+    address = request.POST.get("address")
+    industry = request.POST.get("industry")
+    models.UserInfo2.objects.create(name=name, phone=phone, CustomerID=CustomerID, email=email, address=address,
+                                    industry=industry)
+    # 跳转
+    if request.method == "POST":
+        return redirect("/user_detail/")
