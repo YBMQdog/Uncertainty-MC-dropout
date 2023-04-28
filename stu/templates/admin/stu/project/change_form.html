@@ -44,61 +44,6 @@
     </p>
     {{ adminform.form.non_field_errors }}
 {% endif %}
-<!--    三个按钮-->
-<!--    // 改变按钮位置-->
-    <input type="button" name="change" value="data set" onclick=
-            "window.location.href='/post/'"  id="stamp" >
-
-    <input type="button" name="run" value="run" onclick=
-            "myfunc()"  id="run" >
-
-<div>
-    <a href="http://127.0.0.1:8000/change_form/add">add client</a>
-</div>
-    <script>
-
-
-
-<!--    function myfunc(){-->
-<!--      alert('click!!!')};-->
-
-
-var button = document.getElementById("stamp");
-    button.style.position = "absolute";
-    <!--  // 改变按钮位置-->
-    button.style.left = "850px";
-    button.style.top = "650px";
-
-<!--// 改变按钮样式-->
-button.style.backgroundColor = "#ff6666";
-button.style.color = "white";
-button.style.padding = "10px 20px";
-button.style.border = "none";
-button.style.borderRadius = "5px";
-button.style.cursor = "pointer";
-
-    </script>
-
-<!--显示图片-->
-<!--   <head>-->
-<!--   <meta charset="UTF-8">-->
-<!--   <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
-<!--   <meta http-equiv="X-UA-Compatible" content="ie=edge">-->
-<!--   <title>Document</title>-->
-<!--   <style>-->
-<!--   img{-->
-<!--      display:none;-->
-<!--   }-->
-<!--   </style>-->
-<!--   </head>-->
-
-<!-- <button onclick="showimg()">显示图片</button>-->
-<!--   <img src="C:\Users\小叶\Desktop\Ui iteration\1.png" id="test">-->
-<!--   <script>-->
-<!--   function showimg(){-->
-<!--      document.getElementById('test').style.display="block";-->
-<!--   }-->
-<!--   </script>-->
 
 
 {% block field_sets %}
@@ -138,3 +83,4 @@ button.style.cursor = "pointer";
 </div>
 </form></div>
 {% endblock %}
+

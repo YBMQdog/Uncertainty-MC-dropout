@@ -1,103 +1,225 @@
+<style>
+    .submit-row input[type="submit"] {
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        cursor: pointer;
+        border-radius: 5px;
+    }x`
+
+    .deletelink-box {
+        display: inline-block;
+    }
+
+    .deletelink {
+        color: white;
+        background-color: #f44336;
+        border: none;
+        padding: 10px 20px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        cursor: pointer;
+        border-radius: 5px;
+    }
+
+    .data-button {
+        background-color: #2196F3;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        cursor: pointer;
+        border-radius: 5px;
+    }
+
+    .top-buttons {
+        position: fixed;
+        top: 10px;
+        right: 100px;
+        z-index: 1000;
+        width: 110px;
+        height: 40px;
+    }
+</style>
+
 {% load i18n admin_urls %}
+<div class="top-buttons">
+    <input type="button" value="Run" class="data-button top-buttons" name="_run"/>
+</div>
 <div class="submit-row">
-{% if show_save %}<input type="submit" value="{% trans 'Save' %}" class="default" name="_save" {% if onclick_attrib %}onclick="{{ onclick_attrib }}"{% endif %} />{% endif %}
-{% if show_save_and_continue %}<input type="submit" value="{% trans 'Save and continue editing' %}" name="_continue" />{% endif %}
-{% if show_save_and_add_another %}<input type="submit" value="{% trans 'Save and add another' %}" name="_addanother" />{% endif %}
-{% if show_delete_link %}<p class="deletelink-box"><a href="{% url opts|admin_urlname:'delete' original.pk|admin_urlquote %}" class="deletelink">{% trans 'Delete' %}</a></p>{% endif %}
+    {% if show_save %}<input type="submit" value="{% trans 'Save' %}" class="default" name="_save" {% if onclick_attrib
+                             %}onclick="{{ onclick_attrib }}" {% endif %}/>
+    {% if show_save_and_continue %}<input type="submit" value="{% trans 'Save and continue editing' %}"
+                                          name="_continue"/>{% endif %}
+    {% if show_save_and_add_another %}<input type="submit" value="{% trans 'Save and add another' %}"
+                                             name="_addanother"/>{% endif %}
+
+    {% if show_delete_link %}<p class="deletelink-box" name="_delete"><a
+        href="{% url opts|admin_urlname:'delete' original.pk|admin_urlquote %}" class="deletelink">{% trans 'Delete'
+    %}</a></p>{% endif %}
+    <button class="data-button" name="Mc test">Data set</button>
+
 
 </div>
 {% block extra_js %}
 <script>
+    document.getElementsByName("_run")[0].addEventListener("click", function () {
 
+        let projectName = document.getElementById("id_project_name").value;
+        let projectAuthor = document.getElementById("id_project_author").value; // 获取项目作者输入框的值
+        let Test_number=document.getElementById("id_TestParameters").value;
+        // 发送POST请求到Django视图
+        fetch('/project/run/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': '{{ csrf_token }}',
+            },
+            body: JSON.stringify({
+                project_name: projectName,
+                project_author: projectAuthor,
+                 TestParameters:Test_number
 
-  document.getElementsByName("_save")[0].addEventListener("click", function() {
-      console.log("cnm")
-  let projectName = document.getElementById("id_project_name").value;
-    let projectAuthor = document.getElementById("id_project_author").value; // 获取项目作者输入框的值
-      let projectType = document.getElementById("id_project_type").value;
-       let SingleDetermination=document.getElementById("id_SingleDetermination").value
-
-
-    // 发送POST请求到Django视图
-    fetch('/project/create_users/', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'X-CSRFToken': '{{ csrf_token }}',
-        },
-        body: JSON.stringify({
-            project_name: projectName,
-            project_author: projectAuthor,
-              project_type:projectType,
-              Project_SingleDetermination:SingleDetermination
-        }),
-    }).then(response => {
-        if (response.ok) {
-            console.log("项目名称和作者已成功发送至后端: " + projectName + " - " + projectAuthor+" - "+projectType+" - "+SingleDetermination);
-        } else {
-            console.error("请求失败");
-        }
+            }),
+        }).then(response => {
+            if (response.ok) {
+                console.log("项目名称和作者已成功发送至后端: " + projectName + " - " + projectAuthor +"-Test_number:"+ Test_number);
+            } else {
+                console.error("请求失败");
+            }
+        });
     });
-});
- document.getElementsByName("_continue")[0].addEventListener("click", function() {
-  console.log("cnm")
-  let projectName = document.getElementById("id_project_name").value;
-    let projectAuthor = document.getElementById("id_project_author").value; // 获取项目作者输入框的值
-      let projectType = document.getElementById("id_project_type").value;
-       let SingleDetermination=document.getElementById("id_SingleDetermination").value
 
 
-    // 发送POST请求到Django视图
-    fetch('/project/create_users/', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'X-CSRFToken': '{{ csrf_token }}',
-        },
-        body: JSON.stringify({
-            project_name: projectName,
-            project_author: projectAuthor,
-              project_type:projectType,
-              Project_SingleDetermination:SingleDetermination
-        }),
-    }).then(response => {
-        if (response.ok) {
-            console.log("项目名称和作者已成功发送至后端: " + projectName + " - " + projectAuthor+" - "+projectType+" - "+SingleDetermination);
-        } else {
-            console.error("请求失败");
-        }
+    document.getElementsByName("_save")[0].addEventListener("click", function () {
+
+        let projectName = document.getElementById("id_project_name").value;
+        let projectAuthor = document.getElementById("id_project_author").value; // 获取项目作者输入框的值
+        let projectType = document.getElementById("id_project_type").value;
+        let SingleDetermination = document.getElementById("id_SingleDetermination").value
+
+
+        // 发送POST请求到Django视图
+        fetch('/project/create_users/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': '{{ csrf_token }}',
+            },
+            body: JSON.stringify({
+                project_name: projectName,
+                project_author: projectAuthor,
+                project_type: projectType,
+                Project_SingleDetermination: SingleDetermination
+            }),
+        }).then(response => {
+            if (response.ok) {
+                console.log("项目名称和作者已成功发送至后端: " + projectName + " - " + projectAuthor + " - " + projectType + " - " + SingleDetermination);
+            } else {
+                console.error("请求失败");
+            }
+        });
     });
-});
-document.getElementsByName("_addanother")[0].addEventListener("click", function() {
-      console.log("cnm")
-  let projectName = document.getElementById("id_project_name").value;
-    let projectAuthor = document.getElementById("id_project_author").value; // 获取项目作者输入框的值
-      let projectType = document.getElementById("id_project_type").value;
-       let SingleDetermination=document.getElementById("id_SingleDetermination").value
+    document.getElementsByName("_continue")[0].addEventListener("click", function () {
+
+        let projectName = document.getElementById("id_project_name").value;
+        let projectAuthor = document.getElementById("id_project_author").value; // 获取项目作者输入框的值
+        let projectType = document.getElementById("id_project_type").value;
+        let SingleDetermination = document.getElementById("id_SingleDetermination").value
 
 
-    // 发送POST请求到Django视图
-    fetch('/project/create_users/', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'X-CSRFToken': '{{ csrf_token }}',
-        },
-        body: JSON.stringify({
-            project_name: projectName,
-            project_author: projectAuthor,
-              project_type:projectType,
-              Project_SingleDetermination:SingleDetermination
-        }),
-    }).then(response => {
-        if (response.ok) {
-            console.log("项目名称和作者已成功发送至后端: " + projectName + " - " + projectAuthor+" - "+projectType+" - "+SingleDetermination);
-        } else {
-            console.error("请求失败");
-        }
+        // 发送POST请求到Django视图
+        fetch('/project/create_users/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': '{{ csrf_token }}',
+            },
+            body: JSON.stringify({
+                project_name: projectName,
+                project_author: projectAuthor,
+                project_type: projectType,
+                Project_SingleDetermination: SingleDetermination
+            }),
+        }).then(response => {
+            if (response.ok) {
+                console.log("项目名称和作者已成功发送至后端: " + projectName + " - " + projectAuthor + " - " + projectType + " - " + SingleDetermination);
+            } else {
+                console.error("请求失败");
+            }
+        });
     });
-});
+    document.getElementsByName("_addanother")[0].addEventListener("click", function () {
 
+        let projectName = document.getElementById("id_project_name").value;
+        let projectAuthor = document.getElementById("id_project_author").value; // 获取项目作者输入框的值
+        let projectType = document.getElementById("id_project_type").value;
+        let SingleDetermination = document.getElementById("id_SingleDetermination").value
+
+
+        // 发送POST请求到Django视图
+        fetch('/project/create_users/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': '{{ csrf_token }}',
+            },
+            body: JSON.stringify({
+                project_name: projectName,
+                project_author: projectAuthor,
+                project_type: projectType,
+                Project_SingleDetermination: SingleDetermination
+            }),
+        }).then(response => {
+            if (response.ok) {
+                console.log("项目名称和作者已成功发送至后端: " + projectName + " - " + projectAuthor + " - " + projectType + " - " + SingleDetermination);
+            } else {
+                console.error("请求失败");
+            }
+        });
+    });
+
+
+    document.getElementsByName("_delete")[0].addEventListener("click", function (event) {
+
+        let projectName = document.getElementById("id_project_name").value;
+        let projectAuthor = document.getElementById("id_project_author").value;
+        let deleteUrl = event.target.href + "?project_name=" + encodeURIComponent(projectName) + "&project_author=" + encodeURIComponent(projectAuthor);
+
+
+        window.location.href = deleteUrl;
+        event.preventDefault();
+
+
+    });
+    document.getElementsByName("Mc test")[0].addEventListener("click", function (event) {
+        event.target.href = '{% url "upload" %}'
+        let projectName = document.getElementById("id_project_name").value;
+        let projectAuthor = document.getElementById("id_project_author").value;
+        let deleteUrl = event.target.href + "?project_name=" + encodeURIComponent(projectName) + "&project_author=" + encodeURIComponent(projectAuthor);
+
+
+        window.location.href = deleteUrl;
+
+
+        event.preventDefault();
+
+    });
+
+</script>
 
 
 </script>

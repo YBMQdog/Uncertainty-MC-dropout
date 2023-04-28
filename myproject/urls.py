@@ -16,8 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from stu import views
-from stu.view import upload
-from stu.view import run
+
 from django.conf.urls.static import static
 from django.conf import  settings
 
@@ -26,17 +25,6 @@ from django.conf import  settings
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('project/', include('stu.urls')),
-
-    path('run/',run.run),
-    path('post/', upload.upload_list),  # 上传文件
-    path('user_detail/', views.user_detail),
-    path('add', views.add_client),
-    path('change_form/add', views.add_client),
-    path('change_form/change_form/add', views.add_client),
-
-
-
-
 
 
 
