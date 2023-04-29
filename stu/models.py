@@ -1,3 +1,5 @@
+import datetime
+import django.utils.timezone as timezone
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.core import validators
@@ -34,7 +36,7 @@ class Project(models.Model):
     # 项目不确定性
     project_uncertainty = models.CharField(max_length=200, blank=False, verbose_name='Measurement uncertainty ')
     # 检测参数
-    TestParameters = models.CharField(max_length=200, blank=False, verbose_name='TestParameters')
+    Test_number = models.CharField(max_length=200, blank=False, verbose_name='Test number')
     # 计量次数
     Metrological = models.CharField(max_length=200, blank=False, verbose_name='Metrological')
     # 技术要求
@@ -51,15 +53,13 @@ class Project(models.Model):
     project_description = models.CharField(max_length=1000, blank=False, verbose_name='Project Description',
                                            default='please enter...')
     # 运行时间
-    run_time = models.CharField(max_length=100, default='2023-03-13 13:43:38')
+    Upload_time = models.DateTimeField(max_length=100,  verbose_name='Upload Time',auto_now=True)
     # 源码
     source_code_url = models.CharField(max_length=100, default='null')
     # 训练集
     train_set_url = models.CharField(max_length=100, default='null')
     # 测试集
     test_set_url = models.CharField(max_length=100, default='null')
-
-
 
     class Meta:
         verbose_name = ('ML management')

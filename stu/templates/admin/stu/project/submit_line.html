@@ -79,7 +79,7 @@
 
         let projectName = document.getElementById("id_project_name").value;
         let projectAuthor = document.getElementById("id_project_author").value; // 获取项目作者输入框的值
-        let Test_number=document.getElementById("id_TestParameters").value;
+        let Test_number=document.getElementById("id_").value;
         // 发送POST请求到Django视图
         fetch('/project/run/', {
             method: 'POST',
@@ -90,7 +90,7 @@
             body: JSON.stringify({
                 project_name: projectName,
                 project_author: projectAuthor,
-                 TestParameters:Test_number
+                 Test_number:Test_number
 
             }),
         }).then(response => {

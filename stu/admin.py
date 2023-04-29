@@ -13,7 +13,7 @@ admin.site.site_title = 'ML management backstage'
 
 # 优化列表
 class ProjectAdmin(admin.ModelAdmin):
-    list_display = ('id', 'project_name', 'project_author', 'project_type', 'project_uncertainty', 'TestParameters',
+    list_display = ('id', 'project_name', 'project_author', 'project_type', 'project_uncertainty', 'Test_number',
                     'Metrological', 'TestRequirements', 'TestValues', 'TestValueError',
                     'SingleDetermination', 'link')
     # list_display = ('id', 'project_name', 'project_author', 'project_type', 'project_uncertainty',)

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Client Information</title>
 </head>
 <body>
 
@@ -10,8 +10,25 @@
     <input type="button" name="change" value="go back" onclick="window.location.href='http://127.0.0.1:8000/admin/stu/project/'"
              id="stamp" >
 </div>
-<h2>client detail</h2>
-<table border="1">
+
+    <div class="box1">
+         Client Information
+    </div>
+<style type="text/css">
+.box1{
+    font-size: 24px;
+    text-align: center;
+     margin:0 auto;
+}
+</style>
+
+<style type="text/css">
+    .mytable{
+    margin:0 auto;}
+
+</style>
+<table  border="1" style="border-color: orange;" class="mytable">
+
     <thead>
     <tr>
      <th>ID</th>
@@ -33,6 +50,7 @@
       <td>{{row.email}} </td>
       <td>{{row.address}} </td>
       <td>{{row.industry}} </td>
+
 
 
   </tr>
