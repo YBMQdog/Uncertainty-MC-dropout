@@ -7,5 +7,7 @@ urlpatterns = [
     path('delete_users/', views.delete_users, name='delete_users'),
     path('upload/', views.upload_file, name='upload'),
     path('run/', views.Uncertainty_run, name='run'),
-
+    path('show_picture/', views.show_picture, name='show_picture'),
 ]
+
+

@@ -45,9 +45,43 @@
     {{ adminform.form.non_field_errors }}
 {% endif %}
 <div>
-    <a href="http://127.0.0.1:8000/change_form/add">add client</a>
-</div>
+      <input type="button" name="add_client" value="add client"
+             class="add_client" id="stamp" >
+     <script>
+    var button = document.getElementById("stamp");
+    button.style.position = "absolute";
+    <!--  // 改变按钮位置-->
+    button.style.left = "550px";
+    button.style.top = "90px";
+    button.style.backgroundColor = "#6699ff";
+    button.style.color = "white";
+    button.style.padding = "10px 20px";
+    button.style.border = "none";
+    button.style.borderRadius = "5px";
+    button.style.cursor = "pointer";
+      document.getElementsByName("add_client")[0].addEventListener("click", function (event) {
+        event.target.href = '{% url "add" %}'
+        let projectName = document.getElementById("id_project_name").value;
+        let projectAuthor = document.getElementById("id_project_author").value;
+        let deleteUrl = event.target.href + "?project_name=" + encodeURIComponent(projectName) + "&project_author=" + encodeURIComponent(projectAuthor);
 
+
+        window.location.href = deleteUrl;
+
+
+        event.preventDefault();
+
+
+        event.preventDefault();
+
+    });
+
+
+
+
+     </script>
+<!--    添加用户按钮-->
+</div>
 {% block field_sets %}
 {% for fieldset in adminform %}
   {% include "admin/includes/fieldset.html" %}

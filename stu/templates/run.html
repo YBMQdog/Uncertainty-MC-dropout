@@ -1,10 +1,77 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Uncertainty Chart</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f5f5f5;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 20px;
+      box-sizing: border-box;
+    }
+
+    h1 {
+      font-size: 24px;
+      color: #333;
+      margin-bottom: 20px;
+    }
+
+    img {
+      max-width: 100%;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+    }
+
+    .back-btn {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background-color: #333;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      padding: 10px 20px;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+    }
+
+    .back-btn:hover {
+      background-color: #444;
+    }
+  </style>
 </head>
 <body>
+
+  <div class="container">
+    <button class="back-btn" onclick="history.back()">Back</button>
+    <h1>Result Image</h1>
+    <form method="post" enctype="multipart/form-data" action="{% url 'my_view'%}">
+
+    {% if image %}
+      <img src="data:image/png;base64,{{ image }}" alt="Uncertainty Chart">
+    {% endif %}
+    {% csrf_token %}
+    {{ form.as_p }}
+       <div>
+      <input type="file" name="image">
+      <button type="submit" id="stamp3" name="submit" >submit</button>
+      </div>
+
+    </form>
+
+  </div>
+
 
 </body>
 </html>

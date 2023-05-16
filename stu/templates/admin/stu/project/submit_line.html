@@ -53,54 +53,115 @@
         width: 110px;
         height: 40px;
     }
-</style>
+    #stamp2:hover {
+  background-color: white;
+        color: #6699ff;
+}
 
+</style>
+<!--运行按钮-->
 {% load i18n admin_urls %}
 <div class="top-buttons">
-    <input type="button" value="Run" class="data-button top-buttons" name="_run"/>
+    <input type="button" value="Run" class="data-button top-buttons" name="_run" id="stamp1"  onclick="myFunction()"/>
+     <script>
+     var button1 = document.getElementById("stamp1");
+    button.style.position = "absolute";
+    <!--  // 改变按钮位置-->
+    button1.style.left = "1000px";
+    button1.style.top = "50px";
+    button1.style.backgroundColor = "#6699ff";
+    button1.style.color = "white";
+    button1.style.padding = "10px 20px";
+    button1.style.border = "none";
+    button1.style.borderRadius = "5px";
+    button1.style.cursor = "pointer";
+
+function myFunction() {
+  var txt;
+  if (confirm("Please wait a moment!")) {
+    txt = "You pressed OK!";
+  } else {
+    txt = "You pressed Cancel!";
+  }
+  document.getElementById("stamp1").innerHTML = txt;
+}
+     </script>
+
 </div>
+<input type="button" name="change" value="&larr; back" onclick="window.location.href='http://127.0.0.1:8000/admin/stu/project/'"
+ id="stamp2" >
+ <style>
+ #stamp2 {
+   position: absolute;
+   left: 20px;
+   top: 20px;
+   background-color: #6699ff;
+   color: white;
+   padding: 5px 10px;
+   border: none;
+   border-radius: 5px;
+   cursor: pointer;
+ }
+ #stamp2:hover {
+   background-color: #4e72b8;
+   color: #6699ff;
+ }
+ </style>
+
+<!-- submit.html -->
+
+
 <div class="submit-row">
-    {% if show_save %}<input type="submit" value="{% trans 'Save' %}" class="default" name="_save" {% if onclick_attrib
-                             %}onclick="{{ onclick_attrib }}" {% endif %}/>
-    {% if show_save_and_continue %}<input type="submit" value="{% trans 'Save and continue editing' %}"
-                                          name="_continue"/>{% endif %}
-    {% if show_save_and_add_another %}<input type="submit" value="{% trans 'Save and add another' %}"
-                                             name="_addanother"/>{% endif %}
+ {% if show_save %}<input type="submit" value="{% trans 'Save' %}" class="default" name="_save" {% if onclick_attrib
+ %}onclick="{{ onclick_attrib }}" {% endif %}/>
+ {% if show_save_and_continue %}<input type="submit" value="{% trans 'Save and continue editing' %}"
+ name="_continue"/>{% endif %}
+ {% if show_save_and_add_another %}<input type="submit" value="{% trans 'Save and add another' %}"
+ name="_addanother"/>{% endif %}
+<!--delete 按钮-->
+ {% if show_delete_link %}<p class="deletelink-box" name="_delete"><a
+ href="{% url opts|admin_urlname:'delete' original.pk|admin_urlquote %}" class="delete-link">Delete</a></p>
 
-    {% if show_delete_link %}<p class="deletelink-box" name="_delete"><a
-        href="{% url opts|admin_urlname:'delete' original.pk|admin_urlquote %}" class="deletelink">Delete</a></p>{% endif %}
-    <button class="data-button" name="Mc test">Data set</button>
+ <style type="text/css">
+ .delete-link{
+ font-size: 18px;
+ }
+</style>
 
-
+ {% endif %}
+ <button class="data-button" name="Mc test">Data set</button>
 </div>
 {% block extra_js %}
 <script>
-    document.getElementsByName("_run")[0].addEventListener("click", function () {
 
-        let projectName = document.getElementById("id_project_name").value;
-        let projectAuthor = document.getElementById("id_project_author").value; // 获取项目作者输入框的值
-        let Test_number=document.getElementById("id_").value;
-        // 发送POST请求到Django视图
-        fetch('/project/run/', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRFToken': '{{ csrf_token }}',
-            },
-            body: JSON.stringify({
-                project_name: projectName,
-                project_author: projectAuthor,
-                 Test_number:Test_number
 
-            }),
-        }).then(response => {
-            if (response.ok) {
-                console.log("项目名称和作者已成功发送至后端: " + projectName + " - " + projectAuthor +"-Test_number:"+ Test_number);
-            } else {
-                console.error("请求失败");
-            }
-        });
-    });
+<!--run按钮-->
+   document.getElementsByName("_run")[0].addEventListener("click", function () {
+    let projectName = document.getElementById("id_project_name").value;
+    let projectAuthor = document.getElementById("id_project_author").value;
+    let Test_number = document.getElementById("id_Test_number").value;
+    console.log(projectAuthor + "," + projectName + "      " + Test_number);
+
+
+   fetch('/project/run/', {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json',
+        'X-CSRFToken': '{{ csrf_token }}',
+    },
+    body: JSON.stringify({
+        project_name: projectName,
+        project_author: projectAuthor,
+        Test_number: Test_number,
+    }),
+}).then(response => {
+    if (response.ok) {
+        window.location.href = "{% url 'show_picture' %}";
+    } else {
+        console.error("请求失败");
+    }
+});
+});
 
 
     document.getElementsByName("_save")[0].addEventListener("click", function () {

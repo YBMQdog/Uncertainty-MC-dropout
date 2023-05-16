@@ -1,25 +1,64 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>New_client</title>
+ <meta charset="UTF-8">
+ <title>New_client</title>
+ <style>
+   body {
+     font-family: Arial, sans-serif;
+     margin: 0;
+     padding: 0;
+   }
+   .container {
+     max-width: 500px;
+     margin: 0 auto;
+     padding: 20px;
+   }
+   h2 {
+     text-align: center;
+   }
+   form {
+     display: flex;
+     flex-direction: column;
+     gap: 10px;
+   }
+   input, select {
+     padding: 10px;
+     border: 1px solid #ccc;
+     border-radius: 5px;
+   }
+   input[type="submit"] {
+     background-color: #4CAF50;
+     color: white;
+     cursor: pointer;
+   }
+   input[type="submit"]:hover {
+     background-color: #6699ff;
+   }
+ </style>
 </head>
 <body>
-<h2>New client</h2>
+<div class="container">
+ <h2>New client</h2>
 
+ <form method="post" action="change_form/add">
+ {% csrf_token %}
+ <input type="text" placeholder="name" name="name"/>
+ <input type="text" placeholder="phone" name="phone"/>
+ <input type="text" placeholder="CustomerID" name="CustomerID"/>
+ <input type="text" placeholder="email" name="email"/>
+ <input type="text" placeholder="address" name="address"/>
+ <select id="sid" name="industry">
+ <option>---select industry---</option>
+ <option>media</option>
+ <option>computer</option>
+ <option>medical</option>
+ <option>Biological</option>
+ </select>
 
-    <form method="post" action="change_form/add">
-        {% csrf_token %}
-     <input type="text" placeholder="name" name="name"/>
-     <input type="text" placeholder="phone" name="phone"/>
-     <input type="text" placeholder="CustomerID" name="CustomerID"/>
-     <input type="text" placeholder="email" name="email"/>
-     <input type="text" placeholder="address" name="address"/>
-     <input type="text" placeholder="industry" name="industry"/>
-     <input type="submit" value="submit"/>
-    </form>
-
-
+ <input type="submit" value="submit"/>
+ </form>
+</div>
 
 </body>
 </html>

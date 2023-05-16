@@ -1,4 +1,0 @@
-Project Name: test4
-Project Author: shunyunzhe
-Project Type: None
-Project SingleDetermination: 5.1

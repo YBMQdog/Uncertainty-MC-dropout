@@ -1,4 +1,0 @@
-Project Name: test1
-Project Author: kaige
-Project Type: None
-Project SingleDetermination: 6.1

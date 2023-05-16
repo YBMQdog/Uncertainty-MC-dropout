@@ -15,6 +15,7 @@ device = torch.device("cuda:0" if (torch.cuda.is_available()) else "cpu")
 
 
 def test():
+
     model = Net()
     model.to(device)
     model.load_state_dict(torch.load(model_file))

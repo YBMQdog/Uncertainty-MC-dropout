@@ -2,13 +2,13 @@ import json
 import os
 import shutil
 
-
-from PIL.Image import Image
-from algorithm.Uncertainty_test import main
-from django.shortcuts import render, redirect
 from django.http import HttpResponse, JsonResponse
+from django.shortcuts import render, redirect, get_object_or_404
+
+from algorithm.Uncertainty_test import main
 from stu import models
-from myproject import settings
+from .models import Project
+from django.shortcuts import render
 
 
 def create_users(request):
@@ -63,9 +63,7 @@ def delete_users(request):
         return JsonResponse({"status": "error", "message": "无效的请求"})
 
 
-
-def handle_uploaded_file(f,directory):
-
+def handle_uploaded_file(f, directory):
     for file in os.listdir(directory):
         file_path = os.path.join(directory, file)
         if os.path.isfile(file_path) and file.endswith('.jpg'):
@@ -76,9 +74,9 @@ def handle_uploaded_file(f,directory):
             for chunk in f.chunks():
                 destination.write(chunk)
 
+
 def upload_file(request):
     if request.method == 'POST':
-
         project_name = request.POST.get('project_name')
         project_author = request.POST.get('project_author')
 
@@ -89,24 +87,35 @@ def upload_file(request):
         return HttpResponse('Upload successful!')
     return render(request, 'upload.html')
 
+
 def Uncertainty_run(request):
     if request.method == 'POST':
         data = json.loads(request.body)
-        print(data)
+        pk = data.get("id")
         project_name = data.get('project_name')
         project_author = data.get('project_author')
 
-        Test_number = data.get('TestParameters')
+        Test_number = data.get('Test_number')
 
         folder_name = f"{project_author}-{project_name}"
         directory = os.path.join('algorithm', 'test_result', folder_name)
 
         detail_directory = os.path.join(directory, 'detail')
         os.makedirs(detail_directory, exist_ok=True)
-        main(directory,Test_number)
-        response_data = {'status': 'success', 'message': '项目已运行'}
-        return JsonResponse(response_data)
-    return render(request, 'run.html')
+        image_str = main(directory, Test_number)
+
+        request.session['project_name'] = project_name
+        request.session['image'] = image_str  # Store the image data in the session
+        return redirect('show_picture')
+    else:
+        return render(request, 'run.html')
+
+
+def show_picture(request):
+    image_str = request.session.get('image', None)  # Retrieve the image data from the session
+    print(request.session.get('project_name'))
+    return render(request, 'run.html', {'image': image_str})
+
 
 def user_detail(request):
     queryset = models.UserInfo2.objects.all()
@@ -133,3 +142,23 @@ def add_client(request):
     # 跳转
     if request.method == "POST":
         return redirect("/user_detail/")
+
+
+def my_view(request):
+    if request.method == 'POST':
+        my_image = request.FILES['image']
+
+        # 获取要修改的记录
+        project = models.Project.objects.get(project_name=request.session.get('project_name'))
+
+        # 更新记录的 image 字段
+        project.image = my_image
+        print(my_image)
+        project.save()
+
+        return HttpResponse('Update successful!')
+
+    return render(request, 'upload.html')
+
+
+

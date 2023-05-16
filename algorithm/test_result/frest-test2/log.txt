@@ -1,4 +1,0 @@
-Project Name: test2
-Project Author: frest
-Project Type: None
-Project SingleDetermination: 6.1

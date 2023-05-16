@@ -1,3 +1,5 @@
+
+
 """
 Django settings for myproject project.
 
@@ -12,6 +14,8 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 import os
 import os.path
 from pathlib import Path
+
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.项目地址
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -169,3 +173,4 @@ CORS_ALLOW_HEADERS = (
     'x-csrftoken',
     'x-requested-with',
 )
+

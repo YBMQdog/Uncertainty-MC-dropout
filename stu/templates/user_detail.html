@@ -1,65 +1,84 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Client Information</title>
+ <meta charset="UTF-8">
+ <title>Client Information</title>
+ <style>
+   body {
+     font-family: Arial, sans-serif;
+     margin: 0;
+     padding: 0;
+   }
+   .container {
+     max-width: 800px;
+     margin: 0 auto;
+     padding: 20px;
+   }
+   .back-btn {
+     display: block;
+     margin-bottom: 20px;
+     background-color: #333;
+     color: #fff;
+     border: none;
+     border-radius: 5px;
+     padding: 10px 20px;
+     cursor: pointer;
+     transition: background-color 0.2s ease;
+   }
+   .back-btn:hover {
+     background-color: #444;
+   }
+   h2 {
+     text-align: center;
+   }
+   table {
+     width: 100%;
+     border-collapse: collapse;
+   }
+   th, td {
+     text-align: left;
+     padding: 10px;
+   }
+   th {
+     background-color: #333;
+     color: #fff;
+   }
+ </style>
 </head>
 <body>
+<div class="container">
+ <input class="back-btn" type="button" value="Close" onclick="window.close()">
 
-<div>
-    <input type="button" name="change" value="go back" onclick="window.location.href='http://127.0.0.1:8000/admin/stu/project/'"
-             id="stamp" >
-</div>
+ <h2>Client Information</h2>
 
-    <div class="box1">
-         Client Information
-    </div>
-<style type="text/css">
-.box1{
-    font-size: 24px;
-    text-align: center;
-     margin:0 auto;
-}
-</style>
-
-<style type="text/css">
-    .mytable{
-    margin:0 auto;}
-
-</style>
-<table  border="1" style="border-color: orange;" class="mytable">
-
-    <thead>
-    <tr>
-     <th>ID</th>
-     <th>name</th>
-      <th>phone</th>
-      <th>CustomerID</th>
-      <th>email</th>
-        <th>address</th>
-       <th>industry</th>
-    </tr>
-   </thead>
+ <table border="1" style="border-color: orange;">
+ <thead>
+ <tr>
+ <th>ID</th>
+ <th>Name</th>
+ <th>Phone</th>
+ <th>Customer ID</th>
+ <th>Email</th>
+ <th>Address</th>
+ <th>Industry</th>
+ </tr>
+ </thead>
  <tbody>
  {% for row in queryset %}
-  <tr>
-    <td> {{row.id}} </td>
-    <td>{{row.name}}  </td>
-    <td>{{row.phone}} </td>
-      <td>{{row.CustomerID}} </td>
-      <td>{{row.email}} </td>
-      <td>{{row.address}} </td>
-      <td>{{row.industry}} </td>
-
-
-
-  </tr>
+ <tr>
+ <td>{{ row.id }}</td>
+ <td>{{ row.name }}</td>
+ <td>{{ row.phone }}</td>
+ <td>{{ row.CustomerID }}</td>
+ <td>{{ row.email }}</td>
+ <td>{{ row.address }}</td>
+ <td>{{ row.industry }}</td>
+ </tr>
  {% endfor %}
-</table>
+ </tbody>
+ </table>
 
+</div>
 
-<!--<div>I love Olsen!!!</div>-->
 </body>
 </html>
-
-

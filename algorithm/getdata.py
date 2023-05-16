@@ -1,17 +1,18 @@
 import os
 import torch.utils.data as data
 from PIL import Image
+import numpy as np
 import torch
 import torchvision.transforms as transforms
 
-
+# 默认输入网络的图片大小
 IMAGE_SIZE = 200
 
-
+# 定义一个转换关系，用于将图像数据转换成PyTorch的Tensor形式
 dataTransform = transforms.Compose([
-    transforms.Resize(IMAGE_SIZE),
-    transforms.CenterCrop((IMAGE_SIZE, IMAGE_SIZE)),
-    transforms.ToTensor()
+    transforms.Resize(IMAGE_SIZE),                          # 将图像按比例缩放至合适尺寸
+    transforms.CenterCrop((IMAGE_SIZE, IMAGE_SIZE)),        # 从图像中心裁剪合适大小的图像
+    transforms.ToTensor()   # 转换成Tensor形式，并且数值归一化到[0.0, 1.0]，同时将H×W×C的数据转置成C×H×W，这一点很关键
 ])
 
 
@@ -43,19 +44,18 @@ class DogsVSCatsDataset(data.Dataset):      # 新建一个数据集类，并且�
         else:
             print('Undefined Dataset!')
 
-    def __getitem__(self, item):            # 重载data.Dataset父类方法，获取数据集中数据内容
-        if self.mode == 'train':                                        # 训练集模式下需要读取数据集的image和label
-            img = Image.open(self.list_img[item])                       # 打开图片
-            label = self.list_label[item]                               # 获取image对应的label
-            return self.transform(img), torch.LongTensor([label])       # 将image和label转换成PyTorch形式并返回
-        elif self.mode == 'test':                                       # 测试集只需读取image
+    def __getitem__(self, item):            # 重载data.Dataset父类方法，获取数据集中数据内容ta.Dataset父类方法，获取数据集中数据内容
+        if self.mode == 'train':                                        # 训练集模式下需要读取数据集的image和label                      # 训练集模式下需要读取数据集的image和label
+            img = Image.open(self.list_img[item])                       # 打开图片                      # 打开图片
+            label = self.list_label[item]                               # 获取image对应的label                      # 获取image对应的label
+            return self.transform(img), torch.LongTensor([label])       # 将image和label转换成PyTorch形式并返回Tensor([label])       # 将image和label转换成PyTorch形式并返回
+        elif self.mode == 'test':                                       # 测试集只需读取image                      # 测试集只需读取image
             img = Image.open(self.list_img[item])
-            return self.transform(img)                                  # 只返回image
+            return self.transform(img)                                  # 只返回image                      # 只返回image
         else:
             print('None')
 
+    
+
     def __len__(self):
         return self.data_size               # 返回数据集大小
-
-
-

@@ -1,4 +1,0 @@
-Project Name: test
-Project Author: anzi
-Project Type: None
-Project SingleDetermination: 5.1
